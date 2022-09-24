@@ -47,14 +47,12 @@ type MenuTriggerProps = {
   isActive: boolean
 }
 
-export const MenuTrigger: FC<MenuTriggerProps> = ({ onClick, isActive }) => {
-  return (
-    <Menu onClick={onClick} isActive={isActive}>
-      <MenuLine />
-      <MenuLine />
-      <MenuLine />
-    </Menu>
-  )
-}
+export const MenuTrigger: FC<MenuTriggerProps> = ({ onClick, isActive }) => (
+  <Menu onClick={onClick} isActive={isActive}>
+    <MenuLine />
+    <MenuLine />
+    <MenuLine />
+  </Menu>
+)
 
 export default MenuTrigger

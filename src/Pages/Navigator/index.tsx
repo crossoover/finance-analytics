@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { Route, Routes, useParams } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import MainLogo from '../../components/MainLogo'
 import MenuTrigger from '../../components/MenuTrigger'
 import { PAGES_CONFIG_MAP } from '../../utils/constants'
@@ -41,7 +41,7 @@ const Navigator = () => {
   const [scrollHeight, setScrollHeight] = useState(0)
 
   useEffect(() => {
-    setScrollHeight(subMenuRef.current.clientHeight)
+    setScrollHeight(subMenuRef?.current?.clientHeight)
   }, [isMenuActive])
 
   const menuHandler = () => {

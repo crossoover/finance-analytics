@@ -8,14 +8,13 @@ export type ICircle = {
   opacity: number
 }
 
-const RippleAnimation: FC = () => {
-  return window.innerWidth > MIN_WIDTH_BREAKPOINT ? (
+const RippleAnimation: FC = () =>
+  window.innerWidth > MIN_WIDTH_BREAKPOINT ? (
     <CirclesWrap>
       {CIRCLE_CONFIG_MAP.map((circle) => (
         <Circle key={circle.size} {...circle} />
       ))}
     </CirclesWrap>
   ) : null
-}
 
 export default RippleAnimation
