@@ -144,7 +144,6 @@ export const ForthPlusImage = styled(PlusImage)`
 export const NextScreenWrapper = styled.div`
   background: black;
   width: 100vw;
-  min-height: 100vh;
   display: flex;
   justify-content: center;
   padding: 150px 0;

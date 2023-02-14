@@ -1,16 +1,32 @@
+/* eslint-disable no-nested-ternary */
+import { ResizableBox } from 'react-resizable'
 import styled from 'styled-components'
 
-export const Wrapper = styled.div`
-  padding: 100px 0 15px 0;
+export const StyledResizableBox = styled(ResizableBox)`
+  display: flex;
+  padding-top: 90px;
   background: #8e8e8e;
 
   @media screen and (max-width: 1070px) {
+    width: auto !important;
     border-bottom: 10px solid #000;
   }
+`
 
-  @media screen and (min-width: 1070px) {
-    max-width: 400px;
-    border-right: 10px solid #000;
+export const ResizeButton = styled.div<{
+  currentSidebarWidth: number
+}>`
+  background-color: black;
+  cursor: ${(p) =>
+    p.currentSidebarWidth === 266
+      ? 'e-resize'
+      : p.currentSidebarWidth === 800
+      ? 'w-resize'
+      : 'ew-resize'};
+  width: 100px;
+
+  @media screen and (max-width: 1070px) {
+    display: none;
   }
 `
 

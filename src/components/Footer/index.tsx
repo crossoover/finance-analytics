@@ -22,7 +22,7 @@ const SOCIAL_LINKS_MAP = [
   {
     alt: 'telegram',
     href: 'https://t.me/react_with_crossoover',
-    src: 'https://iconmonstr.com/wp-content/g/gd/makefg.php?i=../releases/preview/2018/png/iconmonstr-telegram-4.png&r=255&g=255&b=255"',
+    src: 'https://iconmonstr.com/wp-content/g/gd/makefg.php?i=../releases/preview/2018/png/iconmonstr-telegram-4.png&r=255&g=255&b=255',
   },
 ]
 
@@ -37,7 +37,7 @@ const Footer = () => {
         ))}
       </LinksWrapper>
       <div>
-        <FooterText>@ 2022 Viacheslav Savratsky</FooterText>
+        <FooterText>@ 2023 Viacheslav Savratsky</FooterText>
       </div>
     </FooterWrap>
   )
