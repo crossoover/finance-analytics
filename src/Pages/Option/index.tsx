@@ -1,7 +1,9 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable consistent-return */
 /* eslint-disable prettier/prettier */
 import { FC, useEffect, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { OPTIONS_CONFIG_LIST } from '../../utils/constants';
 import {
 	OptionWrapper,
 	OptionHeading,
@@ -31,84 +33,56 @@ type IOption = {
 
 const Option: FC = () => {
 	const { sectionId, optionId } = useParams();
-	const [values, setValues] = useState({});
+	const [values, setValues] = useState<any>({});
 
-	const {
-		name,
-		inputs,
-		formula,
-		resultName,
-		definition,
-		calculationExplanation,
-		normalValue,
-	} = {
-		name: 'Чистые активы',
-		inputs: [
-			{
-				label: 'Обязательства',
-				name: 'num1',
-			},
-			{
-				label: 'Собственный капитал',
-				name: 'num2',
-			},
-		],
-		formula: 'num1/num2',
-		resultName: 'resultName',
-		definition: 'test definition',
-		calculationExplanation: 'test calculationExplanation',
-		normalValue:
-			'Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam, quas, mollitia vel hic earum distinctio quae, nobis ipsam ad ex animi quam! Voluptas excepturi voluptate delectus praesentium ea eligendi reiciendis dicta magnam nihil ex, neque obcaecati fugit iure provident ipsa? Natus numquam eius assumenda culpa minima. Cupiditate impedit atque fugiat veniam ad ipsam doloremque ea magnam quod a neque esse similique enim et explicabo autem eligendi voluptate, voluptas, quas veritatis libero! Deserunt sint minus nesciunt odio nobis vel quam nihil exercitationem eius inventore repudiandae ea dignissimos corrupti eum odit consequuntur explicabo maxime voluptatum libero, voluptate iste magnam debitis. Aliquid, provident.',
-	};
+	if (!sectionId || !optionId) return null;
+
+	const { name, inputs, formula, resultName, info } =
+		OPTIONS_CONFIG_LIST[Number(sectionId) - 1][Number(optionId) - 1];
 
 	const computeValue = () => {
-		if (Object.keys(values).length === inputs.length)
+		if (Object.keys(values).length === inputs.length) {
 			// eslint-disable-next-line no-eval
-			return eval(formula.replaceAll('num', 'values.num'));
+			const res = eval(formula.replaceAll('num', 'values.num'));
+			return !Number.isNaN(res) && res !== Infinity && res !== -Infinity
+				? res
+				: 'сталася помилка, будь ласка, перевірте ввід даних.';
+		}
 	};
 
 	const result = useMemo(() => computeValue(), [values]);
 
+	useEffect(() => setValues({}), [sectionId, optionId]);
+
 	return (
 		<OptionWrapper>
-			<OptionHeading>
-				section: {sectionId} option: {optionId}
-			</OptionHeading>
-			<h3>Рассчитать {name.toLowerCase()}⬇️</h3>
+			<OptionHeading>{name}</OptionHeading>
+			<h3>Розрахувати {name.toLowerCase()} ⬇️</h3>
 			<FormWrapper>
-				{inputs.map((item) => {
-					return (
-						<NumberInput
-							type="number"
-							name={item.name}
-							placeholder={item.label}
-							onChange={(e) =>
-								setValues((prev) => {
-									return { ...prev, [item.name]: Number(e.target.value) };
-								})
-							}
-						/>
-					);
-				})}
+				{inputs.map(({ name: inputName, label }) => (
+					<NumberInput
+						type="number"
+						name={inputName}
+						placeholder={label}
+						value={values[inputName]}
+						onChange={(e) =>
+							setValues((prev: any) => {
+								return { ...prev, [inputName]: Number(e.target.value) };
+							})
+						}
+					/>
+				))}
 			</FormWrapper>
 			<Result>
 				{resultName}: <ResultNumber>{result}</ResultNumber>
 			</Result>
 			<div>
-				<OptionInfo>
-					<OptionInfoHeading>Определение</OptionInfoHeading>
-					<OptionInfoDescription>{definition}</OptionInfoDescription>
-				</OptionInfo>
-				<OptionInfo>
-					<OptionInfoHeading>Расчет (формула)</OptionInfoHeading>
-					<OptionInfoDescription>
-						{calculationExplanation}
-					</OptionInfoDescription>
-				</OptionInfo>
-				<OptionInfo>
-					<OptionInfoHeading>Нормальное значение</OptionInfoHeading>
-					<OptionInfoDescription>{normalValue}</OptionInfoDescription>
-				</OptionInfo>
+				{info.map(({ heading, body }) => (
+					<OptionInfo>
+						<OptionInfoHeading>{heading}</OptionInfoHeading>
+						<OptionInfoDescription dangerouslySetInnerHTML={{ __html: body }} />
+					</OptionInfo>
+				))}
 			</div>
 		</OptionWrapper>
 	);
