@@ -59,10 +59,10 @@ const Navigator = () => {
 		<div>
 			<Wrapper>
 				<Navigation>
-					<NavigationLinkItem onClick={closeMenu}>
+					<NavigationLinkItem onClick={closeMenu} autoWidth>
 						<MainNavigationLink to={BASE_ROUTE}>
 							<MainLogo />
-							<LogoText>Справочник финансиста</LogoText>
+							<LogoText>VONO</LogoText>
 						</MainNavigationLink>
 					</NavigationLinkItem>
 					<MenuTrigger onClick={menuHandler} isActive={isMenuActive} />
