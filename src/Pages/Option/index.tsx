@@ -21,16 +21,6 @@ export type IOptionInput = {
 	value: string;
 };
 
-type IOption = {
-	name: string;
-	inputs: IOptionInput[];
-	formula: string;
-	resultName: string;
-	definition: string;
-	calculationExplanation: string;
-	normalValue: string;
-};
-
 const Option: FC = () => {
 	const { sectionId, optionId } = useParams();
 	const [values, setValues] = useState<any>({});
