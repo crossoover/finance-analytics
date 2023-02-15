@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const OptionWrapper = styled.div`
 	background: #f2f2f2;
@@ -44,8 +44,19 @@ export const Result = styled.p`
 	font-size: 20px;
 `;
 
-export const ResultNumber = styled.span`
+export const ResultNumber = styled.span<{ error: boolean }>`
 	font-weight: bold;
+	color: ${(props) => props.error && 'red'};
+
+	${(props) =>
+		!props.error &&
+		css`
+			cursor: pointer;
+
+			&:hover {
+				text-decoration: underline;
+			}
+		`};
 `;
 
 export const OptionInfo = styled.div`

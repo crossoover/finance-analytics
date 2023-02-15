@@ -26,7 +26,7 @@ export const Navigation = styled.ul`
 	justify-content: space-between;
 	margin: 0;
 	position: fixed;
-	background: black;
+	background: #0f0f0f;
 	width: 100vw;
 	padding: 0 30px;
 	height: 90px;

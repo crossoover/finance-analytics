@@ -89,7 +89,7 @@ export const Section = styled.div`
 `;
 
 export const FirstSection = styled(Section)`
-	background: #000;
+	background: #0f0f0f;
 `;
 
 export const SecondSection = styled(Section)`
@@ -144,7 +144,7 @@ export const ForthPlusImage = styled(PlusImage)`
 `;
 
 export const NextScreenWrapper = styled.div`
-	background: black;
+	background: #0f0f0f;
 	width: 100vw;
 	display: flex;
 	justify-content: center;

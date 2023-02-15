@@ -1,4 +1,5 @@
-import { createGlobalStyle } from 'styled-components'
+/* eslint-disable prettier/prettier */
+import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
      * {
@@ -25,7 +26,7 @@ export const GlobalStyle = createGlobalStyle`
 
      ::-webkit-scrollbar{
           width: 8px;
-          background: black;
+          background: #0f0f0f;
      }
 
      ::-webkit-scrollbar-thumb{
@@ -38,4 +39,4 @@ export const GlobalStyle = createGlobalStyle`
      
           border-radius: 4px;
      }
-`
+`;

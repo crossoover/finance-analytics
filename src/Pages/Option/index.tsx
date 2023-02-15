@@ -1,8 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable consistent-return */
 /* eslint-disable prettier/prettier */
 import { FC, useEffect, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { ToastContainer, toast, Slide } from 'react-toastify';
 import { OPTIONS_CONFIG_LIST } from '../../utils/constants';
 import {
 	OptionWrapper,
@@ -15,34 +17,53 @@ import {
 	OptionInfoHeading,
 	OptionInfoDescription,
 } from './styles';
+import 'react-toastify/dist/ReactToastify.css';
 
 export type IOptionInput = {
 	label: string;
 	value: string;
 };
 
+const successToast = () =>
+	toast.success('Результат скопійовано в буфер обміну.', {
+		toastId: 'success1',
+	});
+
+const errorToast = () =>
+	toast.error(
+		'Cталась помилка, будь ласка, перевірте правильність введених даних.',
+		{ toastId: 'error1' }
+	);
+
 const Option: FC = () => {
 	const { sectionId, optionId } = useParams();
 	const [values, setValues] = useState<any>({});
-
-	if (!sectionId || !optionId) return null;
-
 	const { name, inputs, formula, resultName, info } =
 		OPTIONS_CONFIG_LIST[Number(sectionId) - 1][Number(optionId) - 1];
 
+	const areAllValuesEntered = Object.keys(values).length === inputs.length;
+
 	const computeValue = () => {
-		if (Object.keys(values).length === inputs.length) {
+		if (areAllValuesEntered) {
 			// eslint-disable-next-line no-eval
 			const res = eval(formula.replaceAll('num', 'values.num'));
 			return !Number.isNaN(res) && res !== Infinity && res !== -Infinity
-				? res
-				: 'сталася помилка, будь ласка, перевірте ввід даних.';
+				? Math.round((res + Number.EPSILON) * 100) / 100
+				: 'Помилка вводу.';
 		}
 	};
 
-	const result = useMemo(() => computeValue(), [values]);
+	const result = useMemo(() => {
+		const res = computeValue();
+		if (res === 'Помилка вводу.') errorToast();
+		return res;
+	}, [values]);
+
+	const isError = result === 'Помилка вводу.';
 
 	useEffect(() => setValues({}), [sectionId, optionId]);
+
+	if (!sectionId || !optionId) return null;
 
 	return (
 		<OptionWrapper>
@@ -64,7 +85,17 @@ const Option: FC = () => {
 				))}
 			</FormWrapper>
 			<Result>
-				{resultName}: <ResultNumber>{result}</ResultNumber>
+				{areAllValuesEntered && !isError && `${resultName}: `}
+				<ResultNumber
+					onClick={() => {
+						if (isError) return;
+						successToast();
+						navigator.clipboard.writeText(String(result));
+					}}
+					error={isError}
+				>
+					{result}
+				</ResultNumber>
 			</Result>
 			<div>
 				{info.map(({ heading, body }) => (
@@ -74,6 +105,7 @@ const Option: FC = () => {
 					</OptionInfo>
 				))}
 			</div>
+			<ToastContainer transition={Slide} limit={2} autoClose={3000} />
 		</OptionWrapper>
 	);
 };

@@ -10,14 +10,14 @@ export const StyledResizableBox = styled(ResizableBox)`
 
 	@media screen and (max-width: 1070px) {
 		width: auto !important;
-		border-bottom: 10px solid #000;
+		border-bottom: 10px solid #0f0f0f;
 	}
 `;
 
 export const ResizeButton = styled.div<{
 	currentSidebarWidth: number;
 }>`
-	background-color: black;
+	background-color: #0f0f0f;
 	cursor: ${(p) =>
 		p.currentSidebarWidth === 266
 			? 'e-resize'
