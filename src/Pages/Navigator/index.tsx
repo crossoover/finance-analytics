@@ -86,6 +86,7 @@ const Navigator = () => {
 					</Route>
 					<Route index element={<Dashboard />} />
 				</Route>
+				<Route path="*" element={<Dashboard />} />
 			</Routes>
 		</div>
 	);
