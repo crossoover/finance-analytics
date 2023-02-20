@@ -62,7 +62,9 @@ const Navigator = () => {
 					<NavigationLinkItem onClick={closeMenu} autoWidth>
 						<MainNavigationLink to={BASE_ROUTE}>
 							<MainLogo />
-							<LogoText>VONO</LogoText>
+							<LogoText>
+								<span>C</span>inF<span>alc</span>
+							</LogoText>
 						</MainNavigationLink>
 					</NavigationLinkItem>
 					<MenuTrigger onClick={menuHandler} isActive={isMenuActive} />

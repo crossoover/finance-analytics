@@ -9,7 +9,7 @@ const AdditionalInfo = () => {
 				<h2 className="card__heading">
 					Зажміть, щоб дізнатися, як
 					<br />
-					<span className="card__heading__this1">VONO</span> працює.
+					<span className="card__heading__this1">ЦЕ</span> працює.
 				</h2>
 				<img
 					className="card__image"

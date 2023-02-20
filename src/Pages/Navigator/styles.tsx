@@ -62,6 +62,10 @@ export const LogoText = styled.p`
 	color: white;
 	font-weight: bold;
 	font-size: 30px;
+
+	span {
+		color: #b0e339;
+	}
 `;
 
 export const NavigationLinkItem = styled.li<{ autoWidth?: boolean }>`

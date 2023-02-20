@@ -3,9 +3,10 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable consistent-return */
 /* eslint-disable prettier/prettier */
-import { FC, useEffect, useMemo, useState } from 'react';
+import { FC, useEffect, useMemo, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { ToastContainer, toast, Slide } from 'react-toastify';
+import { Tooltip as ReactTooltip } from 'react-tooltip';
 import { OPTIONS_CONFIG_LIST } from '../../utils/constants';
 import {
 	OptionWrapper,
@@ -18,7 +19,6 @@ import {
 	OptionInfoHeading,
 	OptionInfoDescription,
 } from './styles';
-import 'react-toastify/dist/ReactToastify.css';
 
 export type IOptionInput = {
 	label: string;
@@ -37,6 +37,7 @@ const errorToast = () =>
 	);
 
 const Option: FC = () => {
+	const inputsRef = useRef(null);
 	const { sectionId, optionId } = useParams();
 	const [values, setValues] = useState<any>({});
 	const { name, inputs, formula, resultName, info } =
@@ -62,7 +63,12 @@ const Option: FC = () => {
 
 	const isError = result === 'Помилка вводу.';
 
-	useEffect(() => setValues({}), [sectionId, optionId]);
+	useEffect(() => {
+		setValues({});
+		const allinputs = document.querySelectorAll('input');
+		// eslint-disable-next-line no-return-assign, no-param-reassign
+		allinputs.forEach((input) => (input.value = ''));
+	}, [sectionId, optionId]);
 
 	if (!sectionId || !optionId) return null;
 
@@ -73,6 +79,7 @@ const Option: FC = () => {
 			<FormWrapper>
 				{inputs.map(({ name: inputName, label }) => (
 					<NumberInput
+						ref={inputsRef}
 						type="number"
 						name={inputName}
 						placeholder={label}
@@ -87,6 +94,13 @@ const Option: FC = () => {
 			</FormWrapper>
 			<Result>
 				{areAllValuesEntered && !isError && `${resultName}: `}
+				<ReactTooltip
+					style={{ fontSize: 12 }}
+					place="right"
+					anchorId="result"
+					content="Натисніть, щоб скопіювати"
+				/>
+
 				<ResultNumber
 					onClick={() => {
 						if (isError) return;
@@ -95,7 +109,7 @@ const Option: FC = () => {
 					}}
 					error={isError}
 				>
-					{result}
+					<span id="result">{result}</span>
 				</ResultNumber>
 			</Result>
 			<div>

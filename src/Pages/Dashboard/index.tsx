@@ -1,5 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React from 'react';
+import { Tooltip as ReactTooltip } from 'react-tooltip';
 import {
 	NextScreenWrapper,
 	MainWrapper,
@@ -89,7 +90,10 @@ const SECTION_LINKS_MAP = [
 
 const Dashboard = () => (
 	<MainWrapper>
-		<Heading>Ваш новий фінансовий помічник вже тут!</Heading>
+		<Heading>
+			<span>C</span>inF<span>alc</span> - перший такий
+			<span id="app-title">*</span> на просторах інтернету.
+		</Heading>
 		<SectionsWrapper>
 			{SECTION_LINKS_MAP.map(
 				({
@@ -112,6 +116,12 @@ const Dashboard = () => (
 			<AdditionalInfo />
 		</NextScreenWrapper>
 		<Footer />
+		<ReactTooltip
+			style={{ maxWidth: '300px' }}
+			place="bottom"
+			anchorId="app-title"
+			content={`*під словом "такий" мається на увазі швидкий, ергономічний та наповнений всіма можливими формулами фінансовий довідник-калькулятор. І це все Українською мовою.`}
+		/>
 	</MainWrapper>
 );
 

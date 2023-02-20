@@ -15,6 +15,10 @@ export const Heading = styled.h1`
 	text-align: center;
 	padding: 10px;
 	font-size: 45px;
+
+	span {
+		color: #759824;
+	}
 `;
 
 export const SectionText = styled.p`

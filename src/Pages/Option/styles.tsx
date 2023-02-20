@@ -18,6 +18,14 @@ export const OptionHeading = styled.h2`
 	text-align: center;
 	font-size: 30px;
 	margin-bottom: 30px;
+	background: linear-gradient(
+		90deg,
+		rgba(4, 54, 4, 1) 0%,
+		rgba(164, 187, 45, 1) 35%,
+		rgba(255, 143, 0, 1) 100%
+	);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
 `;
 
 export const FormWrapper = styled.form`
