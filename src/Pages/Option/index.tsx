@@ -97,7 +97,7 @@ const Option: FC = () => {
 				<ReactTooltip
 					style={{ fontSize: 12 }}
 					place="right"
-					anchorId="result"
+					anchorId={!isError ? 'result' : ''}
 					content="Натисніть, щоб скопіювати"
 				/>
 
@@ -108,8 +108,9 @@ const Option: FC = () => {
 						navigator.clipboard.writeText(String(result));
 					}}
 					error={isError}
+					id="result"
 				>
-					<span id="result">{result}</span>
+					{result}
 				</ResultNumber>
 			</Result>
 			<div>
